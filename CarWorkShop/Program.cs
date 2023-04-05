@@ -1,7 +1,21 @@
+using CarWorkShop.DAL;
+using CarWorkShop.DAL.Interfaces;
+using CarWorkShop.DAL.Repositories;
+using CarWorkShop.Models.Entity;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+var connection = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(connection));
+
+builder.Services.AddScoped<IBaseRepository<Owner>, OwnerRepository>();
+builder.Services.AddScoped<IBaseRepository<Record>, RecordRepository>();
+builder.Services.AddScoped<IRecordService, RecordService>();
+
 
 var app = builder.Build();
 
