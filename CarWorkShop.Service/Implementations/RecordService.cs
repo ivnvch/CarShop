@@ -1,4 +1,5 @@
-﻿using CarWorkShop.DAL.Repositories;
+﻿using CarWorkShop.DAL.Interfaces;
+using CarWorkShop.DAL.Repositories;
 using CarWorkShop.Models.Entity;
 using CarWorkShop.Models.Enum;
 using CarWorkShop.Models.Response;
@@ -11,9 +12,9 @@ namespace CarWorkShop.Service.Implementations
 {
     public class RecordService : IRecordService
     {
-        private readonly RecordRepository _recordRepository;
+        private readonly IBaseRepository<Record> _recordRepository;
 
-        public RecordService(RecordRepository recordRepository)
+        public RecordService(IBaseRepository<Record> recordRepository)
         {
             _recordRepository = recordRepository;
         }

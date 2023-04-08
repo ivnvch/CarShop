@@ -7,8 +7,9 @@
         public string Model { get; set; }
         public string CarNumber { get; set; }
         public byte[]? Avatar { get; set; }
-        public int ProfileId { get; set; }
-        public Profile? Profile { get; set; }
+        //public int ProfileId { get; set; }
+        //public Profile? Profile { get; set; }
+        public int? RecordId { get; set; }
         public Record? Record { get; set; }
     }
 }

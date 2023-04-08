@@ -7,7 +7,7 @@
         public string FirstName { get; set; }
         public string? MiddleName { get; set; }
         public short Age { get; set; }
-        public List<Record> Records { get; set; }
+        public virtual List<Record> Records { get; set; }
 
         public int OwnerId { get; set; }
         public Owner? Owner { get; set; }

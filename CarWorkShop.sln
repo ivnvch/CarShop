@@ -13,6 +13,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{DD565B1E-DB0
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarWorkShop.DAL", "CarWorkShop.DAL\CarWorkShop.DAL.csproj", "{217FD2C0-CDA5-414C-B157-7812D87BDBC5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{EF585F8D-C75B-4C53-91B2-4EBA5D9E4728}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarWorkShop.Service", "CarWorkShop.Service\CarWorkShop.Service.csproj", "{248A5CA9-8A2E-4C83-9917-D4638E0441C9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +35,10 @@ Global
 		{217FD2C0-CDA5-414C-B157-7812D87BDBC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{217FD2C0-CDA5-414C-B157-7812D87BDBC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{217FD2C0-CDA5-414C-B157-7812D87BDBC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{248A5CA9-8A2E-4C83-9917-D4638E0441C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{248A5CA9-8A2E-4C83-9917-D4638E0441C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{248A5CA9-8A2E-4C83-9917-D4638E0441C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{248A5CA9-8A2E-4C83-9917-D4638E0441C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -38,6 +46,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{E3FBBF38-ED1F-44E7-B21C-2220DE7B8E46} = {90E0BF3A-938A-4085-9DCC-CA8BB132B1ED}
 		{217FD2C0-CDA5-414C-B157-7812D87BDBC5} = {DD565B1E-DB0A-42F8-B738-C07A0E097D84}
+		{248A5CA9-8A2E-4C83-9917-D4638E0441C9} = {EF585F8D-C75B-4C53-91B2-4EBA5D9E4728}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7317037F-41B9-4383-8F7E-1D674763799D}

@@ -2,6 +2,8 @@ using CarWorkShop.DAL;
 using CarWorkShop.DAL.Interfaces;
 using CarWorkShop.DAL.Repositories;
 using CarWorkShop.Models.Entity;
+using CarWorkShop.Service.Implementations;
+using CarWorkShop.Service.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
