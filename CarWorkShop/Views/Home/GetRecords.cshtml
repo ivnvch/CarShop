@@ -1,14 +1,12 @@
 ﻿@using CarWorkShop.Models.Entity
 @model List<Record>
 
-@{
-    ViewData["Title"] = "Home Page";
-}
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h1>Список предметов</h1>
+@{
+    ViewData["Title"] = "Автомастерская";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
 <div class="table-responsive">
     <table class="table table-striped">
@@ -36,10 +34,10 @@
                     <td>@record.Car.Model</td>
                     <td>@record.Car.CarNumber</td>
                     <td>@record.DateTime.ToString("yyyy-MM-dd")</td>
-                    <td>@record.Profile.FirstName</td>
+                   @* <td>@record.Profile.FirstName</td>
                     <td>@record.Profile.LastName</td>
                     <td>@record.Profile.MiddleName</td>
-                    <td>@record.Profile.Age</td>
+                    <td>@record.Profile.Age</td>*@
                 </tr>
             }
         </tbody>

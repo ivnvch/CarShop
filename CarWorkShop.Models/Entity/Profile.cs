@@ -2,6 +2,11 @@
 {
     public class Profile
     {
+        public Profile()
+        {
+            Records = new List<Record>();
+        }
+
         public int Id { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }

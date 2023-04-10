@@ -1,5 +1,6 @@
 ﻿using CarWorkShop.DAL.Interfaces;
 using CarWorkShop.Models.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarWorkShop.DAL.Repositories
 {
@@ -35,7 +36,9 @@ namespace CarWorkShop.DAL.Repositories
 
         public IQueryable<Record> GetAll()
         {
-            return _context.Records;
+            return _context.Records.Include(r => r.Car)
+                .Include(r => r.Profile);
+
         }
     }
 }

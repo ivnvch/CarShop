@@ -35,55 +35,57 @@ namespace CarWorkShop.DAL
 
 
             //Create a user account
-            Owner owner = new Owner()
-            {
-                Id = 3,
-                Login = "lunasya",
-                Password = "147258",
-                Role = Models.Enum.Role.Owner,
-                //ProfileId = 4
+            //var owner = new Owner()
+            //{
+            //    Id = 3,
+            //    Login = "lunasya",
+            //    Password = "147258",
+            //    Role = Models.Enum.Role.Owner,
 
-            };
-
+            //};
+            //modelBuilder.Entity<Owner>().HasData(owner);
             //create a car
-            Car car = new Car()
-            {
-                Id = 1,
-                Mark = "Nissan",
-                Model = "GT-R",
-                CarNumber = "7999 AI-7",
-                //RecordId = 1
-            };
+            //Car car = new Car()
+            //{
+            //    Id = 1,
+            //    Mark = "Nissan",
+            //    Model = "GT-R",
+            //    CarNumber = "7999 AI-7",
+            //    //RecordId = 1
+            //};
 
-            //To fill in a profile
-            Profile profile = new Profile()
-            {
-                Id = 4,
-                FirstName = "Авраам",
-                LastName = "Линкольн",
-                Age = 50,
-                OwnerId = owner.Id,
-            };
+            ////To fill in a profile
+            //Profile profile = new Profile()
+            //{
+            //    Id = 4,
+            //    FirstName = "Авраам",
+            //    LastName = "Линкольн",
+            //    Age = 50,
+            //    Owner = owner,
+            //};
 
-            owner.ProfileId = profile.Id;
-            
 
-            //create a Record
-            Record record = new Record()
-            {
-                Id = 1,
-                DateTime = DateTime.Now,
-                Complaint = "Неисправность в выхлопной системе",
-                CarId = car.Id, //?
-                ProfileId = profile.Id
-            };
-            car.RecordId = record.Id;
-            profile.Records.Add(record);
+            ////create a Record
+            //var record = new Record()
+            //{
+            //    Id = 1,
+            //    DateTime = DateTime.Now,
+            //    Complaint = "Неисправность в выхлопной системе",
+            //    Car = new Car
+            //    {
+            //        Id = 1,
+            //        Mark = "Nissan",
+            //        Model = "GT-R",
+            //        CarNumber = "7999 AI-7",
+            //    },
+            //   Profile = profile
+            //};
+            //car.RecordId = record.Id;
 
-            modelBuilder.Entity<Owner>().HasData(owner);
-            modelBuilder.Entity<Car>().HasData(car);
-            modelBuilder.Entity<Profile>().HasData(profile);
-            modelBuilder.Entity<Record>().HasData(record);
+
+            // modelBuilder.Entity<Car>().HasData(car);
+            //modelBuilder.Entity<Profile>().HasData(profile);
+            //modelBuilder.Entity<Record>().HasData(record);
 
             //modelBuilder.Entity<Record>().HasData(
             //    new Record()
@@ -95,6 +97,21 @@ namespace CarWorkShop.DAL
             //        Profile = new Profile() { Id = 1, FirstName = "Дмитрий", MiddleName = "Иванович", LastName = "Тарасовец", Age = 21 }
 
             //    });
+
+            //modelBuilder.Entity<Owner>().HasData(new Owner
+            //{
+            //    Id = 3,
+            //    Login = "lunasya",
+            //    Password = "147258",
+            //    Role = Models.Enum.Role.Owner,
+            //    Profile = new Profile
+            //    {
+            //        Id = 4,
+            //        FirstName = "Авраам",
+            //        LastName = "Линкольн",
+            //        Age = 50,
+            //    }
+            //});
         }
  
     }

@@ -9,6 +9,6 @@ namespace CarWorkShop.Models.Entity
         public string Password { get; set; }
         public Role Role { get; set; }
         public int ? ProfileId { get; set; }
-        public Profile Profile { get; set; }
+        public Profile? Profile { get; set; }
     }
 }

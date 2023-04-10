@@ -18,8 +18,13 @@ builder.Services.AddScoped<IBaseRepository<Owner>, OwnerRepository>();
 builder.Services.AddScoped<IBaseRepository<Record>, RecordRepository>();
 builder.Services.AddScoped<IRecordService, RecordService>();
 
+// добавляем в приложение сервисы Razor Pages
+builder.Services.AddRazorPages();
 
 var app = builder.Build();
+
+// добавляем поддержку маршрутизации для Razor Pages
+//app.MapRazorPages();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
