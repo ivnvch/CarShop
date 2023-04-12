@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,5 +22,7 @@ namespace CarWorkShop.Models.ViewModel.Record
         public string Mark { get; set; }
         public string Model { get; set; }
         public string CarNumber { get; set; }
+        public IFormFile Avatar { get; set; }
+        public byte[]? Image { get; set; }
     }
 }

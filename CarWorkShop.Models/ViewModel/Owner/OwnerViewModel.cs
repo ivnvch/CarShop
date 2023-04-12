@@ -4,6 +4,10 @@ namespace CarWorkShop.Models.ViewModel.Owner
 {
     public class OwnerViewModel
     {
+
+        [Display(Name = "Id")]
+        public long Id { get; set; }
+
         [Display(Name = "Логин")]
         [Required(ErrorMessage = "Введите логин")]
         public string Login { get; set; }

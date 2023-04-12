@@ -10,38 +10,3 @@
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
-<div class="table-responsive">
-    <table class="table table-striped">
-        <thead class="thead-dark">
-            <tr>
-                <th>Айди</th>
-                <th>Жалобы</th>
-                <th>Марка автомобиля</th>
-                <th>Модель автомобиля</th>
-                <th>Номер автомобиля</th>
-                <th>Дата создания</th>
-                <th>Имя клиента</th>
-                <th>Фамилия клиента</th>
-                <th>Отчество клиента</th>
-                <th>Возраст клиента</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var record in Model)
-            {
-                <tr>
-                    <td>@record.Id</td>
-                    <td>@record.Complaint</td>
-                    <td>@record.Car.Mark</td>
-                    <td>@record.Car.Model</td>
-                    <td>@record.Car.CarNumber</td>
-                    <td>@record.DateTime.ToString("yyyy-MM-dd")</td>
-                    <td>@record.Profile.FirstName</td>
-                    <td>@record.Profile.LastName</td>
-                    <td>@record.Profile.MiddleName</td>
-                    <td>@record.Profile.Age</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>

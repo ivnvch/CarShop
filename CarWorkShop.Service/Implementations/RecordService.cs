@@ -19,7 +19,7 @@ namespace CarWorkShop.Service.Implementations
             _recordRepository = recordRepository;
         }
 
-        public async Task<IBaseResponse<Record>> Create(RecordViewModel recordViewModel)
+        public async Task<IBaseResponse<Record>> Create(RecordViewModel recordViewModel, byte[] imageData)
         {
             try
             {
@@ -30,7 +30,8 @@ namespace CarWorkShop.Service.Implementations
                     {
                         Mark = recordViewModel.Mark,
                         Model = recordViewModel.Model,
-                        CarNumber = recordViewModel.CarNumber
+                        CarNumber = recordViewModel.CarNumber,
+                        Avatar = imageData
                     },
                     DateTime = DateTime.Now,
                     Complaint = recordViewModel.Complaint

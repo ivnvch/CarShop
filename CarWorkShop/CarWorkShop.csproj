@@ -32,11 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\Home\GetRecords.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\Record\" />
+    <None Include="Views\Record\GetRecords.cshtml" />
   </ItemGroup>
 
 </Project>

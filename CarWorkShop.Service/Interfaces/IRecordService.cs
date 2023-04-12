@@ -7,7 +7,7 @@ namespace CarWorkShop.Service.Interfaces
 {
     public interface IRecordService
     {
-        Task<IBaseResponse<Record>> Create(RecordViewModel recordViewModel);
+        Task<IBaseResponse<Record>> Create(RecordViewModel recordViewModel,byte[]? imageData);
 
         IBaseResponse<List<Record>> GetRecords();
 
