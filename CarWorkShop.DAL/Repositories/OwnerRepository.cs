@@ -12,19 +12,16 @@ namespace CarWorkShop.DAL.Repositories
             _context = context;
         }
 
-        public async Task<bool> Create(Owner entity)
+        public async Task Create(Owner entity)
         {
             await _context.Owners.AddAsync(entity);
             await _context.SaveChangesAsync();
-
-            return true;
         }
 
-        public async Task<bool> Delete(Owner entity)
+        public async Task Delete(Owner entity)
         {
             _context.Owners.Remove(entity);
             await _context.SaveChangesAsync();
-            return true;
         }
 
         public async Task<Owner> Update(Owner entity)

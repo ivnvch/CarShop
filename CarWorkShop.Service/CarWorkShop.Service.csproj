@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="NLog.Extensions.Logging" Version="5.2.3" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="5.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CarWorkShop.DAL\CarWorkShop.DAL.csproj" />
     <ProjectReference Include="..\CarWorkShop.Models\CarWorkShop.Models.csproj" />
   </ItemGroup>

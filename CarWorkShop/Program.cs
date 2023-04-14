@@ -5,11 +5,18 @@ using CarWorkShop.Models.Entity;
 using CarWorkShop.Service.Implementations;
 using CarWorkShop.Service.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using NLog.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Host.ConfigureLogging(logging => 
+{
+    logging.ClearProviders();
+    logging.SetMinimumLevel(LogLevel.Trace);
+}).UseNLog();//подключение логгирования
 
 var connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(connection));
