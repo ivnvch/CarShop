@@ -40,18 +40,32 @@ namespace CarWorkShop.Controllers
             return View("Error", $"{response.Description}");
         }
 
+        [HttpGet]
+        public IActionResult CreateRecord() => View();
+
         [HttpPost]
-        public async Task<IActionResult> CreateRecord([FromBody] RecordViewModel model)
+        public async Task<IActionResult> CreateRecord([FromForm]RecordViewModel viewModel)
         {
-            byte[] imageData;
-            using (var binaryReader = new BinaryReader(model.Avatar.OpenReadStream()))
-            {
-                imageData = binaryReader.ReadBytes((int)model.Avatar.Length);
-            }
-            var response = await _recordService.Create(model, imageData);
+            //byte[] imageData;
+            //using (var binaryReader = new BinaryReader(model.Avatar.OpenReadStream()))
+            //{
+            //    imageData = binaryReader.ReadBytes((int)model.Avatar.Length);
+            //}
+            //if (ModelState.IsValid)
+            //{
+            //    var response = await _recordService.Create(model, null);
+
+            //    _logger.LogInformation($"Была добавлена запись под номером \"{response.Data.Id}\" пользователем ////");
+            //    return RedirectToAction("GetRecords");
+            //}
+            var response = await _recordService.Create(viewModel, null);
 
             _logger.LogInformation($"Была добавлена запись под номером \"{response.Data.Id}\" пользователем ////");
             return RedirectToAction("GetRecords");
+
+            return View();
+
+           
         }
     }
 }

@@ -28,13 +28,24 @@ namespace CarWorkShop.Service.Implementations
                 {
                     Car = new Car()
                     {
+                        Id = recordViewModel.Id,
                         Mark = recordViewModel.Mark,
                         Model = recordViewModel.Model,
                         CarNumber = recordViewModel.CarNumber,
                         Avatar = imageData
                     },
                     DateTime = DateTime.Now,
-                    Complaint = recordViewModel.Complaint
+                    Complaint = recordViewModel.Complaint,
+                    ProfileId = 2,
+                    CarId = recordViewModel.Id
+                    
+                    //Profile = new Profile()
+                    //{
+                    //    FirstName = recordViewModel.FirstName,
+                    //    LastName = recordViewModel.LastName,
+                    //    MiddleName = recordViewModel.MiddleName,
+                    //    Age = recordViewModel.Age
+                    //}
                 };
                 await _recordRepository.Create(record);
 
