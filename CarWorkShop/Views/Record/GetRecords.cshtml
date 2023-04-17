@@ -19,6 +19,7 @@
                 <th>Отчество клиента</th>
                 <th>Возраст клиента</th>
                 <th>#</th>
+                <th>#</th>
             </tr>
         </thead>
         <tbody>
@@ -42,22 +43,35 @@
                             </button>
                         </form>
                     </td>
+                     <td>
+                        <button class="btn btn-primary edit-btn" data-toggle="modal" data-target="#editModal">Редактировать</button>
+                    </td>
                 </tr>
+                    <div class="modal" id="editModal">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title">Редактировать запись</h5>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                              </div>
+                              <div class="modal-body">
+                                <form method="post" action="/Record/Edit">
+                                  <!-- форма для редактирования строки -->
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
             }
         </tbody>
     </table>
 </div>
 <div>
-     @*<button type="button" style="position: absolute; top: 150px; right: 50px" class="btn btn-primary" data-toggle="modal" data-target="#CreateModal">Добавить данные </button>*@
     <a class="flex-sm-fill text-sm-center" asp-controller="Record" asp-action="CreateRecord">Создать запись</a>
 </div>
 
-    
-<script>
-$(document).ready(function() {
-    $("#openModalBtn").click(function() {
-        $("#myModal").modal("show"); // открываем модальное окно с id="myModal"
-    });
-});
-</script>
+
+
+
+
 

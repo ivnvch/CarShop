@@ -142,6 +142,7 @@ namespace CarWorkShop.Service.Implementations
                     record.Profile.FirstName = recordViewModel.FirstName;
                     record.Profile.LastName = recordViewModel.LastName;
                     record.Profile.MiddleName = recordViewModel.MiddleName;
+                    record.Profile.Age = recordViewModel.Age;
                     record.Car.Mark = recordViewModel.Mark;
                     record.Car.Model = recordViewModel.Model;
                     record.Car.CarNumber = recordViewModel.CarNumber;
@@ -168,6 +169,36 @@ namespace CarWorkShop.Service.Implementations
                 {
                     StatusCode = StatusCode.InternalServerError,
                     Description = $"[Update]: {ex.Message}"
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<Record>> GetRecord(int id)
+        {
+            try
+            {
+                var record = await _recordRepository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
+                if (record != null)
+                {
+                    return new BaseResponse<Record>()
+                    {
+                        Data = record,
+                        StatusCode = StatusCode.OK,
+                    };
+                }
+
+                return new BaseResponse<Record>()
+                {
+                    Description = "Такой Записи нет",
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<Record>()
+                {
+                    Description = $"[GetRecord] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
                 };
             }
         }

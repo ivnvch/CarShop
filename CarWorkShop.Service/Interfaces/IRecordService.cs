@@ -11,6 +11,9 @@ namespace CarWorkShop.Service.Interfaces
 
         IBaseResponse<List<Record>> GetRecords();
 
+        Task<IBaseResponse<Record>> GetRecord(int id);
+
+
         Task<IBaseResponse<bool>> Delete(int id);
 
         Task<IBaseResponse<Record>> Update(int id, RecordViewModel recordViewModel);

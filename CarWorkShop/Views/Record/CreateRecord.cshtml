@@ -5,47 +5,54 @@
   
 }
 
-<div class="card col-md-12" style="width: 240px; height: 580px; overflow: auto;">
+<div class="content">
+    <div class="card col-md-12">
     <form asp-controller="Record" asp-action="CreateRecord" method="post">
         <div asp-validation-summary="ModelOnly" style="font-size:23px; font-family:Impact" class="text-danger text-center"></div>
-        <div class="mb-3">
-            <label asp-for="FirstName"></label>
+        <div class="mb-3 input-group">
+            <label class="form-label">Имя</label>
             <input type="text" asp-for="FirstName" class="form-control"/>
         </div>
-        <div class="mb-3">
+        <div class="mb-3 input-group">
             <label class="form-label">Фамилия</label>
             <input type="text" asp-for="LastName" class="form-control" />
         </div>
-        <div class="mb-3">
+        <div class="mb-3 input-group">
             <label class="form-label">Отчество</label>
             <input type="text" asp-for="MiddleName" class="form-control" />
         </div>
-         <div class="mb-3">
+         <div class="mb-3 input-group">
             <label class="form-label">Возраст</label>
             <input type="text" asp-for="Age" class="form-control" />
         </div>
-        <div class="mb-3">
+       @* <div class="mb-3 input-group">
             <label class="form-label">Время</label>
             <input type="datetime" asp-for="DateTime" class="form-control" />
-        </div>
-        <div class="mb-3">
+        </div>*@
+        <div class="mb-3 input-group">
             <label class="form-label">Модель автомобиля</label>
             <input type="text" asp-for="Model" class="form-control" />
         </div>
-        <div class="mb-3">
+        <div class="mb-3 input-group">
             <label class="form-label">Марка Автомобиля</label>
             <input type="text" asp-for="Mark" class="form-control" />
         </div>
-         <div class="mb-3">
+         <div class="mb-3 input-group">
             <label class="form-label">Регистрационный номер Автомобиля</label>
             <input type="text" asp-for="CarNumber" class="form-control" />
         </div>
-         <div class="mb-3">
+         <div class="mb-3 input-group">
             <label class="form-label">Жалобы</label>
             <input type="text" asp-for="Complaint" class="form-control" />
         </div>
-        <div>
-            <button class="btn btn-primary float-right" type="submit">Отправить</button>
+        <div class="mb-3 input-group">
+           <div class="active">
+                <button class="btn btn-primary float-right" type="submit">Отправить</button>
+             <div class=" btn btn-primary">
+                  <a asp-controller="Record" asp-action="GetRecords">Список всех записей</a>
+             </div>
+           </div>
         </div>
     </form>
+</div>
 </div>
