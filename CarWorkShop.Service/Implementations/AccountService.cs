@@ -1,8 +1,10 @@
 ﻿using CarWorkShop.DAL.Interfaces;
 using CarWorkShop.Models.Entity;
+using CarWorkShop.Models.Helpers;
 using CarWorkShop.Models.Response;
 using CarWorkShop.Models.ViewModel.Account;
 using CarWorkShop.Service.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,14 +30,92 @@ namespace CarWorkShop.Service.Implementations
             throw new NotImplementedException();
         }
 
-        public Task<BaseResponse<ClaimsIdentity>> Login(LoginViewModel viewModel)
+        public async Task<BaseResponse<ClaimsIdentity>> Login(LoginViewModel viewModel)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var owner = await _ownerRepository.GetAll().FirstOrDefaultAsync(x => x.Login == viewModel.Login);
+
+                if (owner == null)
+                {
+                    return new BaseResponse<ClaimsIdentity>()
+                    {
+                        Description = "Пользователя с таким логином не существует"
+                    };
+
+                }
+                if (owner.Password != HashPasswordHelpers.HashPassowrd(viewModel.Password))
+                {
+                    return new BaseResponse<ClaimsIdentity>()
+                    {
+                        Description = "Неверный пароль"
+                    };
+                }
+
+                var result = Authenticate(owner);
+
+                return new BaseResponse<ClaimsIdentity>()
+                {
+                    Data = result,
+                    StatusCode = Models.Enum.StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<ClaimsIdentity>()
+                {
+                    Description = ex.Message,
+                    StatusCode = Models.Enum.StatusCode.InternalServerError
+                };
+            }
         }
 
-        public Task<BaseResponse<ClaimsIdentity>> Register(RegisterViewModel viewModel)
+        public async Task<BaseResponse<ClaimsIdentity>> Register(RegisterViewModel viewModel)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var owner = await _ownerRepository.GetAll().FirstOrDefaultAsync(x => x.Login == viewModel.Login);
+                if (owner != null)
+                {
+                    return new BaseResponse<ClaimsIdentity>()
+                    {
+                        Description = "Пользователь с таким логином уже существует"
+                    };
+                }
+
+                owner = new Owner()
+                {
+                    Login = viewModel.Login,
+                    Role = Models.Enum.Role.Owner,
+                    Password = HashPasswordHelpers.HashPassowrd(viewModel.Password),
+                };
+
+                await _ownerRepository.Create(owner);
+
+                var profile = new Profile()
+                {
+                    OwnerId = owner.Id,
+                };
+
+                await _profileRepository.Create(profile);
+
+                var result = Authenticate(owner);
+
+                return new BaseResponse<ClaimsIdentity>()
+                {
+                    Data = result,
+                    Description = "Учётная запись создана",
+                    StatusCode = Models.Enum.StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<ClaimsIdentity>()
+                {
+                    Description = ex.Message,
+                    StatusCode = Models.Enum.StatusCode.InternalServerError
+                };
+            }
         }
 
         private ClaimsIdentity Authenticate(Owner owner)
