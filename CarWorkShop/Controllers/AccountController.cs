@@ -2,6 +2,7 @@
 using CarWorkShop.Service.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -20,6 +21,7 @@ namespace CarWorkShop.Controllers
         public IActionResult Register() => View();
 
         [HttpPost]
+        
         public async Task<IActionResult> Register(RegisterViewModel viewModel)
         {
             if (ModelState.IsValid)
@@ -61,6 +63,7 @@ namespace CarWorkShop.Controllers
         }
 
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

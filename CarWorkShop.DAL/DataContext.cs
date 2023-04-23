@@ -17,10 +17,33 @@ namespace CarWorkShop.DAL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Owner>()
-                .HasOne(o => o.Profile)
-                 .WithOne(p => p.Owner)
-                  .HasForeignKey<Profile>(p => p.OwnerId);
+
+            modelBuilder.Entity<Profile>(builder =>
+            {
+                builder.ToTable("Profiles").HasKey(x => x.Id);
+                builder.Property(x => x.Id).ValueGeneratedOnAdd();
+
+                builder.Property(x => x.FirstName).IsRequired();
+                builder.Property(x => x.LastName).IsRequired();
+                builder.Property(x => x.MiddleName).IsRequired();
+                builder.Property(x => x.Age).IsRequired();
+
+            });
+
+            modelBuilder.Entity<Owner>(builder => 
+            {
+                builder.ToTable("Owners").HasKey(x => x.Id);
+                builder.Property(x => x.Id).ValueGeneratedOnAdd();
+
+                builder.Property(x => x.Login).IsRequired();
+                builder.Property(x => x.Password).IsRequired();
+
+                builder.HasOne(x => x.Profile)
+                .WithOne(x => x.Owner)
+                .HasPrincipalKey<Owner>(x => x.Id)
+                .OnDelete(DeleteBehavior.Cascade);
+            });
+           
 
             modelBuilder.Entity<Profile>()
             .HasMany(p => p.Records)
@@ -28,90 +51,14 @@ namespace CarWorkShop.DAL
               .HasForeignKey(r => r.ProfileId)
                .OnDelete(DeleteBehavior.Cascade);
 
+
             modelBuilder.Entity<Record>()
                 .HasOne(r => r.Car)
                  .WithOne(c => c.Record)
                   .HasForeignKey<Car>(c => c.RecordId);
 
 
-            //Create a user account
-            //var owner = new Owner()
-            //{
-            //    Id = 3,
-            //    Login = "lunasya",
-            //    Password = "147258",
-            //    Role = Models.Enum.Role.Owner,
-
-            //};
-            //modelBuilder.Entity<Owner>().HasData(owner);
-            //create a car
-            //Car car = new Car()
-            //{
-            //    Id = 1,
-            //    Mark = "Nissan",
-            //    Model = "GT-R",
-            //    CarNumber = "7999 AI-7",
-            //    //RecordId = 1
-            //};
-
-            ////To fill in a profile
-            //Profile profile = new Profile()
-            //{
-            //    Id = 4,
-            //    FirstName = "Авраам",
-            //    LastName = "Линкольн",
-            //    Age = 50,
-            //    Owner = owner,
-            //};
-
-
-            ////create a Record
-            //var record = new Record()
-            //{
-            //    Id = 1,
-            //    DateTime = DateTime.Now,
-            //    Complaint = "Неисправность в выхлопной системе",
-            //    Car = new Car
-            //    {
-            //        Id = 1,
-            //        Mark = "Nissan",
-            //        Model = "GT-R",
-            //        CarNumber = "7999 AI-7",
-            //    },
-            //   Profile = profile
-            //};
-            //car.RecordId = record.Id;
-
-
-            // modelBuilder.Entity<Car>().HasData(car);
-            //modelBuilder.Entity<Profile>().HasData(profile);
-            //modelBuilder.Entity<Record>().HasData(record);
-
-            //modelBuilder.Entity<Record>().HasData(
-            //    new Record()
-            //    {
-            //        Id = 1,
-            //        CarId = 1,
-            //        DateTime = DateTime.Now,
-            //        Complaint = "Всё найс",
-            //        Profile = new Profile() { Id = 1, FirstName = "Дмитрий", MiddleName = "Иванович", LastName = "Тарасовец", Age = 21 }
-
-            //    });
-
-            //modelBuilder.Entity<Owner>().HasData(new Owner
-            //{
-            //    Id = 3,
-            //    Login = "lunasya",
-            //    Password = "147258",
-            //    Role = Models.Enum.Role.Owner,
-            //    Profile = new Profile
-            //    {
-            //        Id = 4,
-            //        FirstName = "Авраам",
-            //        LastName = "Линкольн",
-            //        Age = 50,
-            //    }
-            //});
+            
         }
  
     }

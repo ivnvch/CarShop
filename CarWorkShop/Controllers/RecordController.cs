@@ -1,5 +1,6 @@
 ﻿using CarWorkShop.Models.ViewModel.Record;
 using CarWorkShop.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarWorkShop.Controllers
@@ -16,6 +17,7 @@ namespace CarWorkShop.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult GetRecords()
         {
             var records = _recordService.GetRecords();
