@@ -37,6 +37,8 @@ builder.Services.AddScoped<IBaseRepository<Record>, RecordRepository>();
 builder.Services.AddScoped<IBaseRepository<Profile>, ProfileRepository>();
 builder.Services.AddScoped<IRecordService, RecordService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IOwnerService, OwnerService>();
+builder.Services.AddScoped<IProfileService, ProfileService>();
 
 // добавляем в приложение сервисы Razor Pages
 builder.Services.AddRazorPages();

@@ -73,15 +73,12 @@ namespace CarWorkShop.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProfileId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Role")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Owners");
+                    b.ToTable("Owners", (string)null);
                 });
 
             modelBuilder.Entity("CarWorkShop.Models.Entity.Profile", b =>
@@ -96,11 +93,9 @@ namespace CarWorkShop.DAL.Migrations
                         .HasColumnType("smallint");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MiddleName")
@@ -114,7 +109,7 @@ namespace CarWorkShop.DAL.Migrations
                     b.HasIndex("OwnerId")
                         .IsUnique();
 
-                    b.ToTable("Profiles");
+                    b.ToTable("Profiles", (string)null);
                 });
 
             modelBuilder.Entity("CarWorkShop.Models.Entity.Record", b =>
@@ -177,8 +172,7 @@ namespace CarWorkShop.DAL.Migrations
 
             modelBuilder.Entity("CarWorkShop.Models.Entity.Owner", b =>
                 {
-                    b.Navigation("Profile")
-                        .IsRequired();
+                    b.Navigation("Profile");
                 });
 
             modelBuilder.Entity("CarWorkShop.Models.Entity.Profile", b =>

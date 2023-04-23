@@ -16,7 +16,7 @@ namespace CarWorkShop.Service.Implementations
             _profileRepository = profileRepository;
         }
 
-        public async Task<BaseResponse<ProfileViewModel>> GetProfile(string firstName)
+        public async Task<BaseResponse<ProfileViewModel>> GetProfile(string login)
         {
             try
             {
@@ -27,8 +27,9 @@ namespace CarWorkShop.Service.Implementations
                         FirstName = x.FirstName,
                         LastName = x.LastName,
                         MiddleName = x.MiddleName,
-                        Age = x.Age
-                    }).FirstOrDefaultAsync(x => x.FirstName == firstName);
+                        Age = x.Age,
+                        Login = x.Owner.Login
+                    }).FirstOrDefaultAsync(x => x.Login == login);
 
                 return new BaseResponse<ProfileViewModel>()
                 {
