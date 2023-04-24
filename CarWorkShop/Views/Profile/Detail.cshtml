@@ -1,0 +1,67 @@
+﻿@model CarWorkShop.Models.ViewModel.Profile.ProfileViewModel
+
+@{
+    ViewBag.Title = "Профиль";
+    Layout = "_Layout";
+}
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <form action="@Url.Action("Save", "Profile")" method="post">
+                    <input asp-for="Id" hidden="hidden"/>
+                    <h5 class="card-title">Данные профиля</h5>
+                    <div class="mb-3">
+                        <label class="form-label text-black-50" >Имя</label>
+                        <input type="text" class="form-control" asp-for="FirstName"/>
+                        <div class="form-text">Максимальная длина имени может достигать 20 символов.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-black-50">Фамилия</label>
+                        <input class="form-control" type="text" asp-for="LastName"/>
+                        <div class="form-text">Максимальная длина фамилии может достигать 30 символов.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-black-50">Отчество</label>
+                        <input class="form-control" type="text" asp-for="MiddleName"/>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-black-50">Возраст</label>
+                        <input class="form-control" type="text" asp-for="Age"/>
+                        <div class="form-text">Диапазон возраста: 0 - 150.</div>
+                    </div>
+
+                    <div class="card-buttons-group">
+                       <button type="submit" class="btn btn-primary">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*@section pageScripts{
+    <script>
+        $('saveProfileId').on('click', function (e) {
+            e.preventDefault();
+            const data = $('#profileFormId').serialize()
+            $.ajax({
+                url: '@Url.Action("Save", "Profile")',
+                type: 'POST',
+                data: data,
+                success: function (response) {
+                    Swal.fire({
+                        title: 'Информация',
+                        text: response.description,
+                        icon: 'success',
+                        confirmButtonText: 'Окей'
+                    })
+                }
+
+            });
+        });
+    </script>
+}
+
+*@
