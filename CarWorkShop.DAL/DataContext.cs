@@ -22,6 +22,7 @@ namespace CarWorkShop.DAL
             {
                 builder.ToTable("Profiles").HasKey(x => x.Id);
                 builder.Property(x => x.Id).ValueGeneratedOnAdd();
+
             });
 
             modelBuilder.Entity<Owner>(builder => 
@@ -37,22 +38,22 @@ namespace CarWorkShop.DAL
                 .HasPrincipalKey<Owner>(x => x.Id)
                 .OnDelete(DeleteBehavior.Cascade);
             });
-           
 
-            modelBuilder.Entity<Profile>()
-            .HasMany(p => p.Records)
-             .WithOne(r => r.Profile)
-              .HasForeignKey(r => r.ProfileId)
-               .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Car>(builder =>
+            {
+                builder.ToTable("Cars").HasKey(x => x.Id);
+                builder.Property(x => x.Id).ValueGeneratedOnAdd();
+            });
 
+            modelBuilder.Entity<Record>(builder =>
+            {
+                builder.ToTable("Records").HasKey(x => x.Id);
 
-            modelBuilder.Entity<Record>()
-                .HasOne(r => r.Car)
-                 .WithOne(c => c.Record)
-                  .HasForeignKey<Car>(c => c.RecordId);
-
-
-            
+                builder.HasOne(x => x.Car)
+                .WithOne(c => c.Record)
+                .HasForeignKey<Car>(c => c.RecordId).IsRequired();
+            });
+                        
         }
  
     }

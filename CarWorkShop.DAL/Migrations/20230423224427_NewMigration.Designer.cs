@@ -4,6 +4,7 @@ using CarWorkShop.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarWorkShop.DAL.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230423224427_NewMigration")]
+    partial class NewMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,15 +49,15 @@ namespace CarWorkShop.DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("RecordId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("RecordId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[RecordId] IS NOT NULL");
 
-                    b.ToTable("Cars", (string)null);
+                    b.ToTable("Cars");
                 });
 
             modelBuilder.Entity("CarWorkShop.Models.Entity.Owner", b =>
@@ -136,16 +139,14 @@ namespace CarWorkShop.DAL.Migrations
 
                     b.HasIndex("ProfileId");
 
-                    b.ToTable("Records", (string)null);
+                    b.ToTable("Records");
                 });
 
             modelBuilder.Entity("CarWorkShop.Models.Entity.Car", b =>
                 {
                     b.HasOne("CarWorkShop.Models.Entity.Record", "Record")
                         .WithOne("Car")
-                        .HasForeignKey("CarWorkShop.Models.Entity.Car", "RecordId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CarWorkShop.Models.Entity.Car", "RecordId");
 
                     b.Navigation("Record");
                 });
