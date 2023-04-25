@@ -56,6 +56,15 @@
                             <li class="nav-item">
                                  <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
                             </li>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                 <li class="nav-item dropdown">
+                                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Админ</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Owner" asp-action="GetOwners">Список пользователей</a></li>
+                                </ul>
+                                 </li>
+                            }
                         </ul>
                         
                         <div style="position:absolute; right:0; display: flex; justify-content:center;">
@@ -92,6 +101,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+   @* @await RenderSectionAsync("Scripts", required: false)*@
+    @await RenderSectionAsync("pageScripts", required: false)
 </body>
 </html>

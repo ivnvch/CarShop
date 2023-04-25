@@ -13,10 +13,12 @@ namespace CarWorkShop.Service.Implementations
     public class RecordService : IRecordService
     {
         private readonly IBaseRepository<Record> _recordRepository;
+        private readonly IBaseRepository<Owner> _ownerRepository;
 
-        public RecordService(IBaseRepository<Record> recordRepository)
+        public RecordService(IBaseRepository<Record> recordRepository, IBaseRepository<Owner> ownerRepository)
         {
             _recordRepository = recordRepository;
+            _ownerRepository = ownerRepository;
         }
 
         public async Task<IBaseResponse<Record>> Create(RecordViewModel recordViewModel, byte[] imageData)
@@ -37,15 +39,9 @@ namespace CarWorkShop.Service.Implementations
                     DateTime = DateTime.Now,
                     Complaint = recordViewModel.Complaint,
                     ProfileId = 2,
-                    CarId = recordViewModel.Id
+                    //CarId = recordViewModel.Id
                     
-                    //Profile = new Profile()
-                    //{
-                    //    FirstName = recordViewModel.FirstName,
-                    //    LastName = recordViewModel.LastName,
-                    //    MiddleName = recordViewModel.MiddleName,
-                    //    Age = recordViewModel.Age
-                    //}
+                    
                 };
                 await _recordRepository.Create(record);
 
@@ -133,8 +129,8 @@ namespace CarWorkShop.Service.Implementations
             try
             {
                 //!!! написать запрос в БД, учитывая все данные
-                var record = await _recordRepository.GetAll().FirstOrDefaultAsync(x => x.Id == id &&
-                                    x.CarId == x.Car.Id && x.ProfileId == x.Profile.Id);
+                var record = await _recordRepository.GetAll().FirstOrDefaultAsync(x => x.Id == id 
+                                   /* x.CarId == x.Car.Id*/ && x.ProfileId == x.Profile.Id);
                 if (record != null)
                 {
                     record.DateTime = DateTime.ParseExact(recordViewModel.DateTime, "yyyyMMdd HH:mm", null);
@@ -173,21 +169,22 @@ namespace CarWorkShop.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<Record>> GetRecord(int id)
+        public async Task<IBaseResponse<IEnumerable<Record>>> GetRecord(string userName)
         {
             try
             {
-                var record = await _recordRepository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
-                if (record != null)
+                var profile = await _ownerRepository.GetAll().Include(x => x.Profile).ThenInclude(x => x.Records).FirstOrDefaultAsync(x => x.Login == userName);
+                var records = profile.Profile?.Records;
+                if (records.Any())
                 {
-                    return new BaseResponse<Record>()
+                    return new BaseResponse<IEnumerable<Record>>()
                     {
-                        Data = record,
+                        Data = records,
                         StatusCode = StatusCode.OK,
                     };
                 }
 
-                return new BaseResponse<Record>()
+                return new BaseResponse<IEnumerable<Record>>()
                 {
                     Description = "Такой Записи нет",
                     StatusCode = StatusCode.OK
@@ -195,7 +192,7 @@ namespace CarWorkShop.Service.Implementations
             }
             catch (Exception ex)
             {
-                return new BaseResponse<Record>()
+                return new BaseResponse<IEnumerable<Record>>()
                 {
                     Description = $"[GetRecord] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError

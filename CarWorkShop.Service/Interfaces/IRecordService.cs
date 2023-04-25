@@ -11,7 +11,7 @@ namespace CarWorkShop.Service.Interfaces
 
         IBaseResponse<List<Record>> GetRecords();
 
-        Task<IBaseResponse<Record>> GetRecord(int id);
+        Task<IBaseResponse<IEnumerable<Record>>> GetRecord(string userName);
 
 
         Task<IBaseResponse<bool>> Delete(int id);

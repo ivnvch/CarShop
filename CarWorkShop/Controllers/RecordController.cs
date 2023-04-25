@@ -30,18 +30,32 @@ namespace CarWorkShop.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> UpdateRecord(int id)
+        [Authorize]
+        public async Task<IActionResult> GetRecord()
         {
-            var response = await _recordService.GetRecord(id);
-            if (response.StatusCode == Models.Enum.StatusCode.OK)
+            
+            var records = await _recordService.GetRecord(User.Identity.Name);
+            if (records.StatusCode == Models.Enum.StatusCode.OK)
             {
-                var model = new RecordViewModel { FirstName = response.Data.Profile.FirstName, LastName = response.Data.Profile.LastName, MiddleName = response.Data.Profile.MiddleName, Age = response.Data.Profile.Age,
-                DateTime = response.Data.DateTime.ToString(), Complaint = response.Data.Complaint, Mark = response.Data.Car.Mark, Model = response.Data.Car.Model, CarNumber = response.Data.Car.CarNumber};
-                return PartialView("_EditModal", model);
+                return View(records.Data);
             }
 
             return RedirectToAction("Error");
         }
+
+        //[HttpGet]
+        //public async Task<IActionResult> UpdateRecord(int id)
+        //{
+        //    var response = await _recordService.GetRecord(id);
+        //    if (response.StatusCode == Models.Enum.StatusCode.OK)
+        //    {
+        //        var model = new RecordViewModel { FirstName = response.Data.Profile.FirstName, LastName = response.Data.Profile.LastName, MiddleName = response.Data.Profile.MiddleName, Age = response.Data.Profile.Age,
+        //        DateTime = response.Data.DateTime.ToString(), Complaint = response.Data.Complaint, Mark = response.Data.Car.Mark, Model = response.Data.Car.Model, CarNumber = response.Data.Car.CarNumber};
+        //        return PartialView("_EditModal", model);
+        //    }
+
+        //    return RedirectToAction("Error");
+        //}
 
         [HttpPost]
         public async Task<IActionResult> Delete(int id)

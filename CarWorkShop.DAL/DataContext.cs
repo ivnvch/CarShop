@@ -51,7 +51,7 @@ namespace CarWorkShop.DAL
 
                 builder.HasOne(x => x.Car)
                 .WithOne(c => c.Record)
-                .HasForeignKey<Car>(c => c.RecordId).IsRequired();
+                .HasForeignKey<Car>(c => c.RecordId).IsRequired(); //.HasForeignKey<Record>(c => c.Id).IsRequired();
             });
                         
         }

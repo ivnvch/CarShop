@@ -9,7 +9,7 @@
         public int ProfileId { get; set; }
         public Profile Profile { get; set; }
 
-        public int CarId { get; set; }
+        //public int CarId { get; set; }
         public Car? Car { get; set; }
     }
 }

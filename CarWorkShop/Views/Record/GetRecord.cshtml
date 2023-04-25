@@ -1,10 +1,4 @@
-﻿@using CarWorkShop.Models.Entity
-@model List<Record>
-
-
-
-   
-@if (@Model != null || @Model.Count > 0)
+﻿@if (@Model != null || @Model.Count > 0)
 {
      <div class="table-responsive">
     <table class="table table-striped">
@@ -74,12 +68,3 @@ else
 {
     <p>Список пуст(:)</p>
 }
-<div>
-    <a class="flex-sm-fill text-sm-center" asp-controller="Record" asp-action="CreateRecord">Создать запись</a>
-</div>
-
-
-
-
-
-

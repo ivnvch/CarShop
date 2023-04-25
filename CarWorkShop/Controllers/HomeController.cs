@@ -19,8 +19,9 @@ namespace CarWorkShop.Controllers
 
         public IActionResult Index()
         {
-            var records = _recordService.GetRecords();
-            return View(records.Data.ToList());
+            //var records = _recordService.GetRecords();
+            //return View(records.Data.ToList());
+            return View();
 
         }
 
