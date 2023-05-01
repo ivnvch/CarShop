@@ -1,4 +1,6 @@
-﻿@if (@Model != null || @Model.Count > 0)
+﻿@*@model CarWorkShop.Models.ViewModel.Record.RecordViewModel*@
+
+@*@if (@Model != null || @Model.Count > 0)
 {
      <div class="table-responsive">
     <table class="table table-striped">
@@ -24,7 +26,7 @@
                 <tr>
                     <td>@record.Id</td>
                     <td>@record.Complaint</td>
-                    <td>@record.Car.Mark</td>
+                    <td>@record</td>
                     <td>@record.Car.Model</td>
                     <td>@record.Car.CarNumber</td>
                     <td>@record.DateTime.ToString("yyyy-MM-dd")</td>
@@ -67,4 +69,4 @@
 else
 {
     <p>Список пуст(:)</p>
-}
+}*@

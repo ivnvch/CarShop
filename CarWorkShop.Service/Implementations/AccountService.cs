@@ -40,7 +40,7 @@ namespace CarWorkShop.Service.Implementations
                     };
 
                 }
-                if (owner.Password != HashPasswordHelpers.HashPassowrd(viewModel.Password))
+                if (owner.Password != HashPasswordHelpers.HashPassword(viewModel.Password))
                 {
                     return new BaseResponse<ClaimsIdentity>()
                     {
@@ -83,7 +83,7 @@ namespace CarWorkShop.Service.Implementations
                 {
                     Login = viewModel.Login,
                     Role = Models.Enum.Role.Owner,
-                    Password = HashPasswordHelpers.HashPassowrd(viewModel.Password),
+                    Password = HashPasswordHelpers.HashPassword(viewModel.Password),
                 };
 
                 await _ownerRepository.Create(owner);

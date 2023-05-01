@@ -43,20 +43,6 @@ namespace CarWorkShop.Controllers
             return RedirectToAction("Error");
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> UpdateRecord(int id)
-        //{
-        //    var response = await _recordService.GetRecord(id);
-        //    if (response.StatusCode == Models.Enum.StatusCode.OK)
-        //    {
-        //        var model = new RecordViewModel { FirstName = response.Data.Profile.FirstName, LastName = response.Data.Profile.LastName, MiddleName = response.Data.Profile.MiddleName, Age = response.Data.Profile.Age,
-        //        DateTime = response.Data.DateTime.ToString(), Complaint = response.Data.Complaint, Mark = response.Data.Car.Mark, Model = response.Data.Car.Model, CarNumber = response.Data.Car.CarNumber};
-        //        return PartialView("_EditModal", model);
-        //    }
-
-        //    return RedirectToAction("Error");
-        //}
-
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
@@ -71,10 +57,17 @@ namespace CarWorkShop.Controllers
         }
 
         [HttpGet]
-        public IActionResult CreateRecord() => View();
+        public IActionResult CreateRecord()
+        {
+            var model = new RecordViewModel()
+            {
+                Login = User.Identity.Name,
+            };
+            return View(model);
+        }
 
         [HttpPost]
-        public async Task<IActionResult> CreateRecord([FromForm]RecordViewModel viewModel)
+        public async Task<IActionResult> CreateRecord(RecordViewModel viewModel)
         {
             //byte[] imageData;
             //using (var binaryReader = new BinaryReader(model.Avatar.OpenReadStream()))

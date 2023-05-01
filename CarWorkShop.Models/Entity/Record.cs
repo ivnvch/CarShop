@@ -6,10 +6,8 @@
         public DateTime DateTime { get; set; }
         public string? Complaint { get; set; } //жалобы 
 
-        public int ProfileId { get; set; }
-        public Profile Profile { get; set; }
-
-        //public int CarId { get; set; }
-        public Car? Car { get; set; }
+        public int OwnerId { get; set; }
+        public Owner Owner { get; set; }
+        public Car Car { get; set; }
     }
 }

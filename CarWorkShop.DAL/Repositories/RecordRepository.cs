@@ -34,8 +34,7 @@ namespace CarWorkShop.DAL.Repositories
 
         public IQueryable<Record> GetAll()
         {
-            return _context.Records.Include(r => r.Car);
-                /*.Include(r => r.Profile)*/;
+            return _context.Records.Include(x => x.Car);
 
         }
     }

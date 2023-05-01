@@ -25,6 +25,16 @@ namespace CarWorkShop.Service.Implementations
         {
             try
             {
+                var owner = _ownerRepository.GetAll().FirstOrDefaultAsync(x => x.Login == recordViewModel.Login);
+
+                if (owner == null)
+                {
+                    return new BaseResponse<Record>()
+                    {
+                        Description = "Пользователь не найден",
+                        StatusCode = StatusCode.OwnerNotFound
+                    };
+                }
 
                 var record = new Record()
                 {
@@ -36,10 +46,9 @@ namespace CarWorkShop.Service.Implementations
                         CarNumber = recordViewModel.CarNumber,
                         Avatar = imageData
                     },
+                    Id = recordViewModel.Id,
                     DateTime = DateTime.Now,
                     Complaint = recordViewModel.Complaint,
-                    ProfileId = 2,
-                    //CarId = recordViewModel.Id
                     
                     
                 };
@@ -65,7 +74,7 @@ namespace CarWorkShop.Service.Implementations
         {
             try
             {
-                var records = _recordRepository.GetAll().ToList();
+                var records = _recordRepository.GetAll().Include(x => x.Owner).ThenInclude(x => x.Profile).ToList();
                 if (records.Any())
                 {
                     return new BaseResponse<List<Record>>()
@@ -130,18 +139,18 @@ namespace CarWorkShop.Service.Implementations
             {
                 //!!! написать запрос в БД, учитывая все данные
                 var record = await _recordRepository.GetAll().FirstOrDefaultAsync(x => x.Id == id 
-                                   /* x.CarId == x.Car.Id*/ && x.ProfileId == x.Profile.Id);
+                                   /* x.CarId == x.Car.Id*/ /*&& x.ProfileId == x.Profile.Id*/);
                 if (record != null)
                 {
-                    record.DateTime = DateTime.ParseExact(recordViewModel.DateTime, "yyyyMMdd HH:mm", null);
-                    record.Complaint = recordViewModel.Complaint;
-                    record.Profile.FirstName = recordViewModel.FirstName;
-                    record.Profile.LastName = recordViewModel.LastName;
-                    record.Profile.MiddleName = recordViewModel.MiddleName;
-                    record.Profile.Age = recordViewModel.Age;
-                    record.Car.Mark = recordViewModel.Mark;
-                    record.Car.Model = recordViewModel.Model;
-                    record.Car.CarNumber = recordViewModel.CarNumber;
+                    //record.DateTime = DateTime.ParseExact(recordViewModel.DateTime, "yyyyMMdd HH:mm", null);
+                    //record.Complaint = recordViewModel.Complaint;
+                    //record.Profile.FirstName = recordViewModel.FirstName;
+                    //record.Profile.LastName = recordViewModel.LastName;
+                    //record.Profile.MiddleName = recordViewModel.MiddleName;
+                    //record.Profile.Age = recordViewModel.Age;
+                    //record.Car.Mark = recordViewModel.Mark;
+                    //record.Car.Model = recordViewModel.Model;
+                    //record.Car.CarNumber = recordViewModel.CarNumber;
 
                     await _recordRepository.Update(record);
 
@@ -173,8 +182,8 @@ namespace CarWorkShop.Service.Implementations
         {
             try
             {
-                var profile = await _ownerRepository.GetAll().Include(x => x.Profile).ThenInclude(x => x.Records).FirstOrDefaultAsync(x => x.Login == userName);
-                var records = profile.Profile?.Records;
+                var profile = await _ownerRepository.GetAll().Include(x => x.Records).FirstOrDefaultAsync(x => x.Login == userName);
+                var records = profile.Records;
                 if (records.Any())
                 {
                     return new BaseResponse<IEnumerable<Record>>()

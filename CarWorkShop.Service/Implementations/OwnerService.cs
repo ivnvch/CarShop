@@ -40,7 +40,7 @@ namespace CarWorkShop.Service.Implementations
                 {
                     Login = viewModel.Login,
                     Role = Enum.Parse<Role>(viewModel.Role),
-                    Password = HashPasswordHelpers.HashPassowrd(viewModel.Password),
+                    Password = HashPasswordHelpers.HashPassword(viewModel.Password),
                 };
 
                 await _ownerRepository.Create(owner);

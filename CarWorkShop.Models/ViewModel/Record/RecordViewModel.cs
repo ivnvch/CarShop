@@ -31,5 +31,6 @@ namespace CarWorkShop.Models.ViewModel.Record
         public string CarNumber { get; set; }
         public IFormFile? Avatar { get; set; }
         public byte[]? Image { get; set; }
+        public string Login { get; set; }
     }
 }

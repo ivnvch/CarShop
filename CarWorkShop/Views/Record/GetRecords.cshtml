@@ -1,4 +1,5 @@
 ﻿@using CarWorkShop.Models.Entity
+@*@using CarWorkShop.Models.ViewModel.Record*@
 @model List<Record>
 
 
@@ -34,10 +35,10 @@
                     <td>@record.Car.Model</td>
                     <td>@record.Car.CarNumber</td>
                     <td>@record.DateTime.ToString("yyyy-MM-dd")</td>
-                    <td>@record.Profile.FirstName</td>
-                    <td>@record.Profile.LastName</td>
-                    <td>@record.Profile.MiddleName</td>
-                    <td>@record.Profile.Age</td>
+                    <td>@record.Owner?.Profile?.FirstName</td>
+                    <td>@record.Owner?.Profile?.LastName</td>
+                    <td>@record.Owner?.Profile?.MiddleName</td>
+                    <td>@record.Owner?.Profile?.Age</td>
                     <td>
                         <form asp-controller="Record" asp-action="Delete" asp-route-id="@record.Id" method="post">
                             <button type="submit" class="btn btn-sm btn-danger">

@@ -55,6 +55,16 @@ namespace CarWorkShop.DAL.Migrations
                         .IsUnique();
 
                     b.ToTable("Cars", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CarNumber = "3109 AE-3",
+                            Mark = "B3",
+                            Model = "Audi",
+                            RecordId = 1
+                        });
                 });
 
             modelBuilder.Entity("CarWorkShop.Models.Entity.Owner", b =>
@@ -79,6 +89,15 @@ namespace CarWorkShop.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Owners", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Login = "dima@mail.ru",
+                            Password = "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+                            Role = 1
+                        });
                 });
 
             modelBuilder.Entity("CarWorkShop.Models.Entity.Profile", b =>
@@ -110,6 +129,14 @@ namespace CarWorkShop.DAL.Migrations
                         .IsUnique();
 
                     b.ToTable("Profiles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Age = (short)0,
+                            OwnerId = 1
+                        });
                 });
 
             modelBuilder.Entity("CarWorkShop.Models.Entity.Record", b =>
@@ -120,23 +147,29 @@ namespace CarWorkShop.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CarId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Complaint")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ProfileId")
+                    b.Property<int>("OwnerId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProfileId");
+                    b.HasIndex("OwnerId");
 
                     b.ToTable("Records", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Complaint = "Проблемы в системе зажигания",
+                            DateTime = new DateTime(2023, 5, 1, 17, 19, 36, 821, DateTimeKind.Local).AddTicks(5797),
+                            OwnerId = 1
+                        });
                 });
 
             modelBuilder.Entity("CarWorkShop.Models.Entity.Car", b =>
@@ -163,28 +196,26 @@ namespace CarWorkShop.DAL.Migrations
 
             modelBuilder.Entity("CarWorkShop.Models.Entity.Record", b =>
                 {
-                    b.HasOne("CarWorkShop.Models.Entity.Profile", "Profile")
+                    b.HasOne("CarWorkShop.Models.Entity.Owner", "Owner")
                         .WithMany("Records")
-                        .HasForeignKey("ProfileId")
+                        .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Profile");
+                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("CarWorkShop.Models.Entity.Owner", b =>
                 {
                     b.Navigation("Profile");
-                });
 
-            modelBuilder.Entity("CarWorkShop.Models.Entity.Profile", b =>
-                {
                     b.Navigation("Records");
                 });
 
             modelBuilder.Entity("CarWorkShop.Models.Entity.Record", b =>
                 {
-                    b.Navigation("Car");
+                    b.Navigation("Car")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

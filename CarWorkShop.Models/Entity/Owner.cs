@@ -8,7 +8,7 @@ namespace CarWorkShop.Models.Entity
         public string Login { get; set; }
         public string Password { get; set; }
         public Role Role { get; set; }
-        //public int ? ProfileId { get; set; }
         public Profile? Profile { get; set; }
+        public virtual List<Record> Records { get; set; } = new();
     }
 }
