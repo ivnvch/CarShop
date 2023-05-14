@@ -9,7 +9,8 @@ namespace CarWorkShop.Service.Interfaces
     {
         Task<IBaseResponse<Record>> Create(RecordViewModel recordViewModel,byte[]? imageData);
 
-        IBaseResponse<List<Record>> GetRecords();
+        IBaseResponse<List<Record>> GetRecords(string userName);
+        //Task<IBaseResponse<IEnumerable<RecordViewModel>>> GetItemss(string userName);
 
         Task<IBaseResponse<IEnumerable<Record>>> GetRecord(string userName);
 

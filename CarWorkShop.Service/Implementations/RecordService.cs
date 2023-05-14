@@ -14,11 +14,13 @@ namespace CarWorkShop.Service.Implementations
     {
         private readonly IBaseRepository<Record> _recordRepository;
         private readonly IBaseRepository<Owner> _ownerRepository;
+        private readonly IBaseRepository<Car> _carRepository;
 
-        public RecordService(IBaseRepository<Record> recordRepository, IBaseRepository<Owner> ownerRepository)
+        public RecordService(IBaseRepository<Record> recordRepository, IBaseRepository<Owner> ownerRepository, IBaseRepository<Car> carRepository)
         {
             _recordRepository = recordRepository;
             _ownerRepository = ownerRepository;
+            _carRepository = carRepository;
         }
 
         public async Task<IBaseResponse<Record>> Create(RecordViewModel recordViewModel, byte[] imageData)
@@ -38,21 +40,29 @@ namespace CarWorkShop.Service.Implementations
 
                 var record = new Record()
                 {
-                    Car = new Car()
-                    {
-                        Id = recordViewModel.Id,
-                        Mark = recordViewModel.Mark,
-                        Model = recordViewModel.Model,
-                        CarNumber = recordViewModel.CarNumber,
-                        Avatar = imageData
-                    },
-                    Id = recordViewModel.Id,
+                    
+                    //Id = recordViewModel.Id,
                     DateTime = DateTime.Now,
                     Complaint = recordViewModel.Complaint,
+                    OwnerId = owner.Result.Id,
                     
                     
                 };
+
                 await _recordRepository.Create(record);
+
+                Car car = new Car()
+                {
+                   // Id = recordViewModel.Id,
+                    Mark = recordViewModel.Mark,
+                    Model = recordViewModel.Model,
+                    CarNumber = recordViewModel.CarNumber,
+                    Avatar = imageData,
+                    Record = record
+
+                };
+
+                await _carRepository.Create(car);
 
                 return new BaseResponse<Record>()
                 {
@@ -70,23 +80,25 @@ namespace CarWorkShop.Service.Implementations
             }
         }
 
-        public IBaseResponse<List<Record>> GetRecords()
+        public IBaseResponse<List<Record>> GetRecords(string userName)
         {
             try
             {
-                var records = _recordRepository.GetAll().Include(x => x.Owner).ThenInclude(x => x.Profile).ToList();
-                if (records.Any())
-                {
-                    return new BaseResponse<List<Record>>()
-                    {
-                        Data = records,
-                        StatusCode = StatusCode.OK,
-                    };
-                }
+                var user = _ownerRepository.GetAll().Include(x => x.Records).ThenInclude(x => x.Car).FirstOrDefault(x => x.Login == userName);
+                //var records = _recordRepository.GetAll().Include(x => x.Owner).ThenInclude(x => x.Profile).Where(x => x.Owner.Login == userName).ToList();
+                var response = user.Records.ToList();
+                //if (response.Any())
+                //{
+                //    return new BaseResponse<List<Record>>()
+                //    {
+                //        Data = response,
+                //        StatusCode = StatusCode.OK,
+                //    };
+                //}
 
                 return new BaseResponse<List<Record>>()
                 {
-                    Description = "Список пуст",
+                   Data = response,
                     StatusCode = StatusCode.OK
                 };
             }
@@ -208,5 +220,50 @@ namespace CarWorkShop.Service.Implementations
                 };
             }
         }
+
+        //public async Task<IBaseResponse<IEnumerable<RecordViewModel>>> GetItemss(string userName)
+        //{
+        //    try
+        //    {
+        //        var record = await _ownerRepository.GetAll().Include(x => x.Records).ThenInclude(x => x.Owner).ThenInclude(x => x.Profile).FirstOrDefaultAsync(x => x.Login == userName);
+
+        //        if (record == null)
+        //        {
+        //            return new BaseResponse<IEnumerable<RecordViewModel>>()
+        //            {
+        //                Description = "Пользователь не найден",
+        //                StatusCode = StatusCode.OwnerNotFound
+        //            };
+        //        }
+
+        //        var records = record.Records;
+        //        var response = from p in records
+        //                       join rec in _recordRepository.GetAll() on p.Car.Id equals rec.Id
+        //                       select new RecordViewModel()
+        //                       {
+        //                           Id = rec.Id,
+        //                           FirstName = rec?.Owner?.Profile?.FirstName,
+        //                           LastName = rec?.Owner?.Profile?.LastName,
+        //                           MiddleName = rec?.Owner?.Profile?.MiddleName,
+        //                           Mark = rec.Car.Mark,
+        //                           Model = rec.Car.Model,
+        //                           CarNumber = rec.Car.CarNumber,
+        //                           Complaint = rec.Complaint
+        //                       };
+        //        return new BaseResponse<IEnumerable<RecordViewModel>>()
+        //        {
+        //            Data = response,
+        //            StatusCode = StatusCode.OK
+        //        };
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return new BaseResponse<IEnumerable<RecordViewModel>>()
+        //        {
+        //            Description = ex.Message,
+        //            StatusCode = StatusCode.InternalServerError
+        //        };
+        //    }
+        //}
     }
 }
