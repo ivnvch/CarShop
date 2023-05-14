@@ -35,6 +35,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 builder.Services.AddScoped<IBaseRepository<Owner>, OwnerRepository>();
 builder.Services.AddScoped<IBaseRepository<Record>, RecordRepository>();
 builder.Services.AddScoped<IBaseRepository<Profile>, ProfileRepository>();
+builder.Services.AddScoped<IBaseRepository<Car>, CarRepository>();
 builder.Services.AddScoped<IRecordService, RecordService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IOwnerService, OwnerService>();
